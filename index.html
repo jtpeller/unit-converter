@@ -29,11 +29,13 @@
         <!-- button tabs to select unit type -->
         <!-- types include: length, area, volume, weight, and time -->
         <div class="btn-group d-flex justify-content-center">
-            <button class="btn btn-outline-light" type="button" id="length">length</button>
-            <button class="btn btn-outline-light" type="button" id="area">area</button>
-            <button class="btn btn-outline-light" type="button" id="volume">volume</button>
-            <button class="btn btn-outline-light" type="button" id="mass">mass</button>
-            <button class="btn btn-outline-light" type="button" id="time">time</button>
+            <button class="btn btn-outline-light" type="button" id="length">Length</button>
+            <button class="btn btn-outline-light" type="button" id="area">Area</button>
+            <button class="btn btn-outline-light" type="button" id="volume">Volume</button>
+            <button class="btn btn-outline-light" type="button" id="mass">Mass</button>
+            <button class="btn btn-outline-light" type="button" id="time">Time</button>
+            <button class="btn btn-outline-light" type="button" id="energy">Energy</button>
+            <button class="btn btn-outline-light" type="button" id="temperature">Temperature</button>
         </div>
 
         <!-- conversion form -->
@@ -61,11 +63,13 @@
         <!-- show how this calculation is made -->
         <div class="d-flex justify-content-center">
             <!-- formula thingy -->
-            <div class="formula">
-                <h4><b class="emphasis">Formula</b> Multiply 
-                    <span id="unit1span">#</span> by 
-                    <span id="factor">#</span> to get 
-                    <span id="unit2span">#</span>
+            <div class="formula" id="formula">
+                <h4><b class="emphasis">Formula</b>
+                    <wrap>Multiply 
+                        <span id="unit1span">#</span> by 
+                        <span id="factor">#</span> to get 
+                        <span id="unit2span">#</span>
+                    </wrap>
                 </h4>
             </div>
         </div>

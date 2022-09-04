@@ -36,3 +36,14 @@ let time_units = [
     "Day", "Week", "Month", "Year", "Decade", "Century", "Millennium"
 ]
 let time_root = "Second";
+
+let energy_units = [
+    "Joule", "Kilojoule", "Gram calorie", "Kilocalorie", "Watt hour", "Kilowatt hour",
+    "Electronvolt", "British Thermal Unit", "US therm", "Foot-pound"
+]
+let energy_root = "Joule";
+
+let temperature_units = [
+    "Celsius", "Fahrenheit", "Kelvin"
+]
+let temperature_root = "Celsius";

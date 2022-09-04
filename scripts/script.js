@@ -11,6 +11,8 @@ let units = length;     // ptr to length factors
 let unit_root;          // ptr to unit root
 let unit1 = "meter";
 let unit2 = "kilometer";
+let formula;
+let tform;
 
 window.onload = function init() {
     // get all the needed DOM elements
@@ -21,6 +23,7 @@ window.onload = function init() {
     elem.unit1span = d3.select('#unit1span');
     elem.factor = d3.select('#factor');
     elem.unit2span = d3.select('#unit2span');
+    elem.formula = d3.select('wrap');
     
     // get all buttons
     btns.length = d3.select('#length');
@@ -28,8 +31,14 @@ window.onload = function init() {
     btns.volume = d3.select('#volume');
     btns.mass = d3.select('#mass');
     btns.time = d3.select('#time');
+    btns.energy = d3.select('#energy');
+    btns.temperature = d3.select('#temperature');
     
     initListeners();
+
+    // save off formula
+    formula = elem.formula.html();
+    tform = temperature_formula.fahrenheit;
 
     // initialization events
     btns.length.node().click();
@@ -45,7 +54,11 @@ window.onload = function init() {
 function initListeners() {
     // listeners on the input boxes
     elem.in1.on('input', function() {
-        converted = convertUnits(units, +elem.in1.node().value, elem.unit1.node().value, elem.unit2.node().value, unit_root);
+        if (units == temperature) {
+            converted = convertTemperature(+elem.in1.node().value, elem.unit1.node().value, elem.unit2.node().value);
+        } else {
+            converted = convertUnits(units, +elem.in1.node().value, elem.unit1.node().value, elem.unit2.node().value, unit_root);
+        }
         elem.in2.node().value = converted;
     })
 
@@ -56,18 +69,14 @@ function initListeners() {
 
     // listeners on unit dropdowns
     elem.unit1.on('change', function() {
-        updateFormula();
-
-        // modify conversion
         elem.in1.node().value = 1;
         elem.in1.node().dispatchEvent(new Event('input', {bubbles:true}));
+        updateFormula();
     })
 
     elem.unit2.on('change', function() {
-        updateFormula();
-
-        // modify conversion
         elem.in1.node().dispatchEvent(new Event('input', {bubbles:true}));
+        updateFormula();
     })
 
     // listeners on the buttons
@@ -89,6 +98,14 @@ function initListeners() {
     
     btns.time.on('click', function() {
         changeUnit(4);
+    })
+
+    btns.energy.on('click', function() {
+        changeUnit(5);
+    })
+
+    btns.temperature.on('click', function() {
+        changeUnit(6);
     })
 }
 
@@ -134,6 +151,25 @@ function changeUnit(unit_value) {
             // now update formula
             updateFormula();
             break;
+        case 5:
+            units = energy;
+            unit_root = energy_root;
+            populateDropdowns(energy_units);
+            d3.selectAll('button').classed('selected-btn', false);
+            btns.energy.classed('selected-btn', true);
+
+            // update formula
+            updateFormula();
+            break;
+        case 6:
+            units = temperature;
+            unit_root = temperature_root;
+            populateDropdowns(temperature_units);
+            d3.selectAll('button').classed('selected-btn', false);
+            btns.temperature.classed('selected-btn', true);
+            
+            updateFormula();
+            break;
         default:
             units = length;
             unit_root = length_root;
@@ -171,33 +207,71 @@ function populateDropdowns(units) {
 }
 
 function convertUnits(units, input, input_unit, output_unit, root) {
-    if (input_unit == root) {
-        // we are going from root unit to the selected output unit
-        // convert directly using saved factors
-        o = output_unit.replaceAll(" ", '_').toLowerCase();
+    i = input_unit.replaceAll(" ", '_').replaceAll('-', '_').toLowerCase();
+    o = output_unit.replaceAll(" ", '_').replaceAll('-', '_').toLowerCase();
+
+    if (input_unit == root) {           // convert directly from root unit
         return input * units[o];
-    } else if (output_unit == root) {
-        // converting directly to the root unit.
-        i = input_unit.replaceAll(" ", '_').toLowerCase();
+    } else if (output_unit == root) {   // converting directly to root
         return input * (1/units[i])
     }
     // convert to root unit, then convert to desired output
-    i = input_unit.replaceAll(" ", '_').toLowerCase();
-    o = output_unit.replaceAll(" ", '_').toLowerCase();
     return input * (1/units[i]) * units[o];
 }
 
+function convertTemperature(input, input_unit, output_unit) {
+    i = input_unit.replaceAll(" ", '_').replaceAll('-', '_').toLowerCase();
+    o = output_unit.replaceAll(" ", '_').replaceAll('-', '_').toLowerCase();
+
+    // figure out which formula to use
+    if (i.startsWith("c")) {   // celcius
+        if (o.startsWith("c")) {
+            tform = temperature_formula.def;
+            return input;
+        }
+        tform = temperature_formula[o];
+        return temperature[o](input);    // c -> k or f
+    } else if (i.startsWith("f")) {
+        if (o.startsWith('c')) { // f -> c
+            tform = temperature_formula.ftoc;
+            return temperature.ftoc(input);
+        } else {                 // f -> k
+            tform = temperature_formula.ftok;
+            return temperature.kelvin(temperature.ftoc(input));
+        }
+    } else {
+        if (o.startsWith('c')) { // k -> c
+            tform = temperature_formula.ktoc;
+            return temperature.ktoc(input);
+        } else {
+            tform = temperature_formula.ktof;
+            return temperature.fahrenheit(temperature.ktoc(input));
+        }
+    }
+}
+
 function updateFormula() {
-    unit1 = elem.unit1.node().value.replaceAll(" ", "_").toLowerCase();
-    unit2 = elem.unit2.node().value.replaceAll(" ", "_").toLowerCase();
-    
-    text = elem.unit1.node().value.toLowerCase() + "s";
-    elem.unit1span.text(text.replace('foots', 'feet').replace('us', 'U.S.').replace('imperial', 'Imperial'))
+    unit1 = elem.unit1.node().value.replaceAll(" ", "_").replaceAll('-', '_').toLowerCase();
+    unit2 = elem.unit2.node().value.replaceAll(" ", "_").replaceAll('-', '_').toLowerCase();
 
-    text = elem.unit2.node().value.toLowerCase() + "s";
-    elem.unit2span.text(text.replace('foots', 'feet').replace('us', 'U.S.').replace('imperial', 'Imperial'))
+    if (units != temperature) {
+        elem.formula.html(formula);
+        elem.unit1span = d3.select('#unit1span');
+        elem.factor = d3.select('#factor');
+        elem.unit2span = d3.select('#unit2span');
+        
+        // set units
+        text1 = elem.unit1.node().value.toLowerCase() + "s";
+        text2 = elem.unit2.node().value.toLowerCase() + "s";
+        elem.unit1span.text(text1.replace('foots', 'feet').replace('us', 'U.S.').replace('imperial', 'Imperial'))
+        elem.unit2span.text(text2.replace('foots', 'feet').replace('us', 'U.S.').replace('imperial', 'Imperial'))
+        
+        // set factor
+        elem.factor.text(1/units[unit1] * units[unit2])
+    } else {
+        elem.formula.html(tform);
+    }
 
-    elem.factor.text(1/units[unit1] * units[unit2])
 
     elem.in1.node().dispatchEvent(new Event('input', {bubbles:true}));
 }

@@ -87,3 +87,36 @@ time = {
     century: 1/3153427200,
     millenium: 1/31534272000,
 };
+
+// energy -- joule is the root unit
+energy = {
+    joule: 1,
+    kilojoule: 0.001,
+    gram_calorie: 1/4.184,
+    kilocalorie: 1/4184,
+    watt_hour: 1/3600,
+    kilowatt_hour: 1/3.6e6,
+    electronvolt: 6.242e18,
+    british_thermal_unit: 0.000947817,
+    us_therm: 9.4804e-9,
+    foot_pound: 0.737562
+}
+
+// temperature -- celsius is the root unit
+temperature = {
+    celsius: 1,
+    fahrenheit: (c) => { return (c * 9/5) + 32; },
+    kelvin: (c) => { return c + 273.15; },
+    ktoc: (k) => { return k - 273.15; },
+    ftoc: (f) => { return (f - 32) * 5/9; },
+}
+
+temperature_formula = {
+    fahrenheit: "f = (c * 9/5) + 32",
+    kelvin: "k = c + 273.15",
+    ktoc: "c = k - 273.15",
+    ftoc: "c = (f - 32) * 5/9",
+    ftok: "k = (f - 32) * 5/9 + 273.15",
+    ktof: "f = (k - 273.15 * 9/5) + 32",
+    def: "1",
+}
