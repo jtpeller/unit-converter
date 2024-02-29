@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 
-<html lang="en-us">
+<html lang="en-us" data-bs-theme="dark">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Unit Converter</title>
-
     
     <!-- CSS & Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel='stylesheet' href='styles.css'>
 
     <!-- scripts -->
-    <script src='https://d3js.org/d3.v7.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="scripts/script.js"></script>
     <script src="scripts/factors.js"></script>
     <script src="scripts/units.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -44,18 +42,18 @@
         <div class="form-parent d-flex justify-content-center">
             <!-- unit amount input form -->
             <form class="row d-flex align-items-center m-3">
-                <div class="col-sm-12 col-lg-5">
-                    <input type="text" class="form-control my-input" id="in1" value="1">
-                    <select class="form-select my-select" id="unit1" aria-label="Unit 1 Selection">
+                <div class="col-sm-12 col-md-5">
+                    <input type="text" class="form-control my-input" id="input-box" value="1">
+                    <select class="form-select my-select" id="input" aria-label="Unit 1 Selection">
                         <!-- added later -->
                     </select>
                 </div>
-                <div class="col-sm-12 col-lg-2 text-center">
+                <div class="col-sm-12 col-md-2 text-center">
                     <h1>=</h1>
                 </div>
-                <div class="col-sm-12 col-lg-5">
-                    <input type="text" class="form-control my-input" id="in2">
-                    <select class="form-select my-select" id="unit2" aria-label="Unit 2 Selection">
+                <div class="col-sm-12 col-md-5">
+                    <input type="text" class="form-control my-input" id="output-box">
+                    <select class="form-select my-select" id="output" aria-label="Unit 2 Selection">
                         <!-- added later -->
                     </select>
                 </div>
@@ -65,13 +63,14 @@
         <!-- show how this calculation is made -->
         <div class="d-flex justify-content-center">
             <!-- formula thingy -->
-            <div class="formula" id="formula">
-                <h4><b class="emphasis">Formula</b>
-                    <wrap>Multiply 
-                        <span id="unit1span">#</span> by 
+            <div class="formula text-center" id="formula">
+                <h4 class="row">
+                    <b class="col-sm-12 col-lg-auto p-2 emphasis">Formula</b>
+                    <div id="wrap" class="p-2 col-sm-12 col-lg-auto d-inline-block">Multiply 
+                        <span id="input-span">#</span> by 
                         <span id="factor">#</span> to get 
-                        <span id="unit2span">#</span>
-                    </wrap>
+                        <span id="output-span">#</span>
+                    </div>
                 </h4>
             </div>
         </div>

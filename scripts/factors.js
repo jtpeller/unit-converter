@@ -4,10 +4,11 @@
 // =  Author:       jtpeller
 // =  Date:         September 03, 2022
 // =================================================================
+"use strict";
 
 // length -- meter is the root unit, so unit 1 will be converted to it
 // before being converted to the selected unit 2
-length = {
+const LEN = {
     meter: 1,
     kilometer: 0.001,
     centimeter: 100,
@@ -22,7 +23,7 @@ length = {
 };
 
 // area -- square feet is the root unit
-area = {
+const AREA = {
     square_foot: 1,
     square_meter: 0.092903,
     square_kilometer: 9.2903e-8,
@@ -34,7 +35,7 @@ area = {
 };
 
 // volume -- cubic foot is the root unit
-volume = {
+const VOLUME = {
     us_liquid_gallon: 1,
     us_liquid_quart: 4,
     us_liquid_pint: 8,
@@ -58,7 +59,7 @@ volume = {
 };
 
 // mass -- kilogram is the root unit 
-mass = {
+const MASS = {
     kilogram: 1,
     pound: 2.20462262185,
     ounce: 35.27396195,
@@ -72,7 +73,7 @@ mass = {
 };
 
 // time -- second is the root unit
-time = {
+const TIME = {
     nanosecond: 1e9,
     microsecond: 1e6,
     millisecond: 1e3,
@@ -89,7 +90,7 @@ time = {
 };
 
 // energy -- joule is the root unit
-energy = {
+const ENERGY = {
     joule: 1,
     kilojoule: 0.001,
     gram_calorie: 1/4.184,
@@ -103,7 +104,7 @@ energy = {
 }
 
 // temperature -- celsius is the root unit
-temperature = {
+const TEMP = {
     celsius: 1,
     fahrenheit: (c) => { return (c * 9/5) + 32; },
     kelvin: (c) => { return c + 273.15; },
@@ -111,7 +112,7 @@ temperature = {
     ftoc: (f) => { return (f - 32) * 5/9; },
 }
 
-temperature_formula = {
+const T_FORM = {
     fahrenheit: "f = (c * 9/5) + 32",
     kelvin: "k = c + 273.15",
     ktoc: "c = k - 273.15",

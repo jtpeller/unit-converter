@@ -43,7 +43,6 @@ html {
 }
 
 .emphasis {
-    padding: 5px;
     background-color: var(--emphasis-bg-color);
     color: var(--primary-font-color);
     border-radius: 5px;
@@ -100,7 +99,7 @@ html {
 }
 
 /* S */
-@media only screen and (min-width: 577px) and (max-width: 768px) {
+@media only screen and (min-width: 592px) and (max-width: 768px) {
     .banner {
         padding-top: 50px;
     }
@@ -111,7 +110,7 @@ html {
 }
 
 /* XS */
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 591px) {
     .banner {
         padding-top: 75px;
     }
