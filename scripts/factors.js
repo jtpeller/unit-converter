@@ -8,7 +8,7 @@
 
 // length -- meter is the root unit, so unit 1 will be converted to it
 // before being converted to the selected unit 2
-const LEN = {
+const LEN_FACTORS = {
     meter: 1,
     kilometer: 0.001,
     centimeter: 100,
@@ -23,19 +23,19 @@ const LEN = {
 };
 
 // area -- square feet is the root unit
-const AREA = {
+const AREA_FACTORS = {
     square_foot: 1,
     square_meter: 0.092903,
     square_kilometer: 9.2903e-8,
     square_mile: 3.587e-8,
-    square_yard: 1/9,
+    square_yard: 1 / 9,
     square_inch: 144,
-    hectare: 1/107600,
-    acre: 1/43560,
+    hectare: 1 / 107600,
+    acre: 1 / 43560,
 };
 
 // volume -- cubic foot is the root unit
-const VOLUME = {
+const VOLUME_FACTORS = {
     us_liquid_gallon: 1,
     us_liquid_quart: 4,
     us_liquid_pint: 8,
@@ -59,7 +59,7 @@ const VOLUME = {
 };
 
 // mass -- kilogram is the root unit 
-const MASS = {
+const MASS_FACTORS = {
     kilogram: 1,
     pound: 2.20462262185,
     ounce: 35.27396195,
@@ -67,36 +67,36 @@ const MASS = {
     gram: 1000,
     milligram: 1e+6,
     microgram: 1e+9,
-    imperial_ton: 1/1016,
-    us_ton: 1/907.2,
-    stone: 1/6.35
+    imperial_ton: 1 / 1016,
+    us_ton: 1 / 907.2,
+    stone: 1 / 6.35
 };
 
 // time -- second is the root unit
-const TIME = {
+const TIME_FACTORS = {
     nanosecond: 1e9,
     microsecond: 1e6,
     millisecond: 1e3,
     second: 1,
-    minute: 1/60,
-    hour: 1/3600,
-    day: 1/86400,
-    week: 1/604800,
-    month: 1/2627856,
-    year: 1/31534272,
-    decade: 1/315342720,
-    century: 1/3153427200,
-    millenium: 1/31534272000,
+    minute: 1 / 60,
+    hour: 1 / 3600,
+    day: 1 / 86400,
+    week: 1 / 604800,
+    month: 1 / 2627856,
+    year: 1 / 31534272,
+    decade: 1 / 315342720,
+    century: 1 / 3153427200,
+    millenium: 1 / 31534272000,
 };
 
 // energy -- joule is the root unit
-const ENERGY = {
+const ENERGY_FACTORS = {
     joule: 1,
     kilojoule: 0.001,
-    gram_calorie: 1/4.184,
-    kilocalorie: 1/4184,
-    watt_hour: 1/3600,
-    kilowatt_hour: 1/3.6e6,
+    gram_calorie: 1 / 4.184,
+    kilocalorie: 1 / 4184,
+    watt_hour: 1 / 3600,
+    kilowatt_hour: 1 / 3.6e6,
     electronvolt: 6.242e18,
     british_thermal_unit: 0.000947817,
     us_therm: 9.4804e-9,
@@ -104,12 +104,12 @@ const ENERGY = {
 }
 
 // temperature -- celsius is the root unit
-const TEMP = {
+const TEMP_FACTORS = {
     celsius: 1,
-    fahrenheit: (c) => { return (c * 9/5) + 32; },
+    fahrenheit: (c) => { return (c * 9 / 5) + 32; },
     kelvin: (c) => { return c + 273.15; },
     ktoc: (k) => { return k - 273.15; },
-    ftoc: (f) => { return (f - 32) * 5/9; },
+    ftoc: (f) => { return (f - 32) * 5 / 9; },
 }
 
 const T_FORM = {

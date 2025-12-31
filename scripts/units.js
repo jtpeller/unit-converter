@@ -1,50 +1,79 @@
 // =================================================================
 // = units.js
-// =  Description:  Contains all unit names
+// =  Description:  Contains all unit objects
 // =  Author:       jtpeller
 // =  Date:         September 03, 2022
 // =================================================================
 "use strict";
 
-const LEN_NAMES = [
-    "Meter", "Kilometer", "Centimeter", "Millimeter", "Micrometer", "Nanometer", "Mile",
-    "Yard", "Foot", "Inch", "Nautical Mile"
-];
-const LEN_ROOT = "Meter";
+class Units {
+    constructor({ names = [], factors = {} }) {
+        this.names = names;
+        this.factors = factors;
 
-const AREA_NAMES = [
-    "Square meter", "Square kilometer", "Square mile", "Square yard", "Square foot", 
-    "Square inch", "Hectare", "Acre"
-];
-const AREA_ROOT = "Square foot";
+        // Discover the root by finding the unit for which the factor is 1.
+        for (let [k, v] of Object.entries(factors)) {
+            if (v == 1) {
+                this.root = k;
+                break;
+            }
+        }
+    }
+}
 
-const VOLUME_NAMES = [
-    "US liquid gallon", "US liquid quart", "US liquid pint", "US liquid cup", "US legal cup",
-    "US fluid ounce", "Imperial gallon", "Imperial quart", "Imperial pint", "Imperial cup",
-    "Imperial fluid ounce", "Imperial tablespoon", "Imperial teaspoon", "US tablespoon",
-    "US teaspoon", "Cubic foot", "Cubic inch", "Cubic meter", "Liter", "Milliliter"
-]
-const VOLUME_ROOT = "US liquid gallon";
+const LENGTH = new Units({
+    names: [
+        "Meter", "Kilometer", "Centimeter", "Millimeter", "Micrometer",
+        "Nanometer", "Mile", "Yard", "Foot", "Inch", "Nautical Mile"
+    ],
+    factors: LEN_FACTORS,
+});
 
-const MASS_NAMES = [
-    "Kilogram", "Pound", "Ounce", "Gram", "Milligram", "Microgram", "Metric Ton",
-    "Imperial Ton", "US Ton", "Stone"
-];
-const MASS_ROOT = "Kilogram";
+const AREA = new Units({
+    names: [
+        "Square meter", "Square kilometer", "Square mile", "Square yard", "Square foot",
+        "Square inch", "Hectare", "Acre"
+    ],
+    factors: AREA_FACTORS,
+});
 
-const TIME_NAMES = [
-    "Nanosecond", "Microsecond", "Millisecond", "Second", "Minute", "Hour",
-    "Day", "Week", "Month", "Year", "Decade", "Century", "Millennium"
-]
-const TIME_ROOT = "Second";
+const VOLUME = new Units({
+    names: [
+        "US liquid gallon", "US liquid quart", "US liquid pint", "US liquid cup", "US legal cup",
+        "US fluid ounce", "Imperial gallon", "Imperial quart", "Imperial pint", "Imperial cup",
+        "Imperial fluid ounce", "Imperial tablespoon", "Imperial teaspoon", "US tablespoon",
+        "US teaspoon", "Cubic foot", "Cubic inch", "Cubic meter", "Liter", "Milliliter"
+    ],
+    factors: VOLUME_FACTORS,
+});
 
-const ENERGY_NAMES = [
-    "Joule", "Kilojoule", "Gram calorie", "Kilocalorie", "Watt hour", "Kilowatt hour",
-    "Electronvolt", "British Thermal Unit", "US therm", "Foot-pound"
-]
-const ENERGY_ROOT = "Joule";
+const MASS = new Units({
+    names: [
+        "Kilogram", "Pound", "Ounce", "Gram", "Milligram", "Microgram", "Metric Ton",
+        "Imperial Ton", "US Ton", "Stone"
+    ],
+    factors: MASS_FACTORS,
+});
 
-const TEMP_NAMES = [
-    "Celsius", "Fahrenheit", "Kelvin"
-]
-const TEMP_ROOT = "Celsius";
+const TIME = new Units({
+    names: [
+        "Nanosecond", "Microsecond", "Millisecond", "Second", "Minute", "Hour",
+        "Day", "Week", "Month", "Year", "Decade", "Century", "Millennium"
+    ],
+    factors: TIME_FACTORS,
+});
+
+const ENERGY = new Units({
+    names: [
+        "Joule", "Kilojoule", "Gram calorie", "Kilocalorie", "Watt hour", "Kilowatt hour",
+        "Electronvolt", "British Thermal Unit", "US therm", "Foot-pound"
+    ],
+    factors: ENERGY_FACTORS,
+});
+
+const TEMP = new Units({
+    names: ["Celsius", "Fahrenheit", "Kelvin"],
+    factors: TEMP_FACTORS,
+});
+
+const UNITS_LIST = [LENGTH, AREA, VOLUME, MASS, TIME, ENERGY, TEMP];

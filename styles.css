@@ -1,5 +1,5 @@
 :root {
-    --bg-color: rgb(11, 12, 14);
+    --bg-color: rgb(5, 6, 7);
     --emphasis-bg-color: rgb(0, 132, 255);
 
     --primary-font-color: rgb(219, 219, 219);
@@ -9,7 +9,6 @@
 /* ELEMENTS */
 body,
 html {
-    font-family: Helvetica, Arial, sans-serif;
     color: var(--primary-font-color);
     background-color: var(--bg-color);
     min-height: 100vh;
@@ -23,29 +22,17 @@ html {
     font-size: 36px;
 }
 
-.btn-group {
-    flex-wrap: wrap;
-}
-
-.btn-group-item {
-    background-color: transparent;
-    color: var(--primary-font-color);
-    border-color: var(--border-color);
-    font-size: 24px;
-
-    transition: font-size 500ms ease;
-    transition: background-color 500ms ease;
-}
-
-.btn-group-item:hover {
-    background-color: var(--primary-font-color);
-    color: black;
-}
-
 .emphasis {
     background-color: var(--emphasis-bg-color);
     color: var(--primary-font-color);
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
+}
+
+.formula-wrap {
+    border: 1px solid var(--border-color);
+    border-radius: 0 0 5px 5px;
+
+    background-color: black !important;
 }
 
 .my-input {
@@ -61,10 +48,13 @@ html {
     transition: font-size 500ms ease;
 }
 
+.unit-select {
+    border-top-style: none !important;
+}
+
 .my-select {
     margin: 0;
     border: 1px solid var(--border-color);
-    border-top-style: none;
     border-radius: 0;
     background-color: black;
     color: var(--primary-font-color);
@@ -86,15 +76,34 @@ html {
         padding-top: 150px;
     }
 
-    .btn-group-item, .my-input, .my-select {
+    .my-input,
+    .my-select {
         font-size: 24px;
+    }
+
+    .emphasis {
+        border-radius: 5px 0 0 5px;
+    }
+
+    .formula-wrap {
+        border-radius: 0 5px 5px 0;
     }
 }
 
 /* MD */
 @media only screen and (min-width: 769px) and (max-width: 992px) {
-    .btn-group-item, .my-input, .my-select {
+
+    .my-input,
+    .my-select {
         font-size: 22px;
+    }
+
+    .emphasis {
+        border-radius: 5px 5px 0 0;
+    }
+
+    .formula-wrap {
+        border-radius: 0 0 5px 5px;
     }
 }
 
@@ -104,8 +113,17 @@ html {
         padding-top: 50px;
     }
 
-    .btn-group-item, .my-input, .my-select {
+    .my-input,
+    .my-select {
         font-size: 20px;
+    }
+
+    .emphasis {
+        border-radius: 5px 5px 0 0;
+    }
+
+    .formula-wrap {
+        border-radius: 0 0 5px 5px;
     }
 }
 
@@ -115,7 +133,16 @@ html {
         padding-top: 75px;
     }
 
-    .btn-group-item, .my-input, .my-select {
+    .my-input,
+    .my-select {
         font-size: 20px;
+    }
+
+    .emphasis {
+        border-radius: 5px 5px 0 0;
+    }
+
+    .formula-wrap {
+        border-radius: 0 0 5px 5px;
     }
 }
