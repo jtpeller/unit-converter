@@ -181,22 +181,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 return input;
             }
             tform = T_FORM[o];
-            return TEMP[o](input);    // c -> k or f
+            return TEMP_FACTORS[o](input);    // c -> k or f
         } else if (i.startsWith("f")) {
             if (o.startsWith('c')) { // f -> c
                 tform = T_FORM.ftoc;
-                return TEMP.ftoc(input);
+                return TEMP_FACTORS.ftoc(input);
             } else {                 // f -> k
                 tform = T_FORM.ftok;
-                return TEMP.kelvin(TEMP.ftoc(input));
+                return TEMP_FACTORS.kelvin(TEMP_FACTORS.ftoc(input));
             }
         } else {
             if (o.startsWith('c')) { // k -> c
                 tform = T_FORM.ktoc;
-                return TEMP.ktoc(input);
+                return TEMP_FACTORS.ktoc(input);
             } else {
                 tform = T_FORM.ktof;
-                return TEMP.fahrenheit(TEMP.ktoc(input));
+                return TEMP_FACTORS.fahrenheit(TEMP_FACTORS.ktoc(input));
             }
         }
     }
